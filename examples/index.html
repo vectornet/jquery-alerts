@@ -11,6 +11,16 @@
             $('#alert').bind('click', function(){
                 jAlert('Alert message', 'Alert title');
             });
+            $('#confirm').bind('click', function(){
+                jConfirm('Confirm message', 'Confirm title', function(response) {
+                    jAlert(response ? 'Ok pressed' : 'Cancel pressed', 'Alert title');
+                });
+            });
+            $('#prompt').bind('click', function(){
+                jPrompt('Prompt message', 'Default value', 'Prompt title', function(response) {
+                    jAlert(response, 'Alert title');
+                });
+            });
         });//ready
     </script>
 </head>
