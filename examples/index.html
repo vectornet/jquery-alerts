@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>jQuery Alerts</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../src/jquery.alerts.css" media="screen" type="text/css" />
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="../src/jquery.alerts.js"></script>
+    <!-- <script type="text/javascript" src="../src/lang/pt_br.js"></script> -->
+    <script>
+        jQuery().ready(function() {
+            $('#alert').bind('click', function() {
+                jAlert('Alert message', 'Alert title', function(response) {
+                    jAlert('Alert callback', 'Alert title');
+                });
+            });
+            $('#confirm').bind('click', function() {
+                jConfirm('Confirm message', 'Confirm title', function(response) {
+                    jAlert(response ? 'Ok pressed' : 'Cancel pressed', 'Alert title');
+                });
+            });
+            $('#question').bind('click', function() {
+                jQuestion('Question message', 'Question title', 'Is true', 'Is false', function(response) {
+                    jAlert(response, 'Alert title');
+                });
+            });
+            $('#prompt').bind('click', function() {
+                jPrompt('Prompt message', 'Default value', 'Prompt title', function(response) {
+                    jAlert(response, 'Alert title');
+                });
+            });
+            $('#options').bind('click', function() {
+                jOptions('Options message', 'Options title', [{'value': 'PDF'}, {'value': 'xlsx', 'text': 'Microsoft Excel'}], function(response) {
+                    jAlert(response, 'Alert title');
+                });
+            });
+        });//ready
+    </script>
+</head>
+<body>
+    <button id="alert">Alert</button>
+    <button id="confirm">Confirm</button>
+    <button id="question">Question</button>
+    <button id="prompt">Prompt</button>
+    <button id="options">Options</button>
+</body>
+</html>
