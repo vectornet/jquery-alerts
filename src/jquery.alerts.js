@@ -40,6 +40,7 @@
         dialogClass: null,                  // if specified, this class will be applied to all dialogs
         alertDefaultTitle: 'Alert',         // Default alert title
         confirmDefaultTitle: 'Confirm',     // Default confirm title
+        questionDefaultTitle: 'Question',   // Default question title
         promptDefaultTitle: 'Prompt',       // Default prompt title
         optionsDefaultTitle: 'Options',     // Default options title
 
@@ -79,6 +80,29 @@
                 title = $.alerts.confirmDefaultTitle;
             }
             $.alerts._show(title, message, null, 'confirm', null, function (result) {
+                if (callback) {
+                    callback(result);
+                }
+            });
+        },
+
+        /**
+         * Define a Dialog as custom question
+         *
+         * @param {string} message Dialog message
+         * @param {string} value Default input value
+         * @param {string} text_ok Custom Ok button text
+         * @param {string} text_cancel Custom Cancel button text
+         * @param {function} callback Function to receive dialog response
+         * @returns {void}
+         */
+        question: function (message, title, text_ok, text_cancel, callback) {
+            $.alerts.okButton = (text_ok == null ? $.alerts.okButton : text_ok);
+            $.alerts.cancelButton = (text_cancel == null ? $.alerts.cancelButton : text_cancel);
+            if(title == null) {
+                title = $.alerts.questionDefaultTitle;
+            }
+            $.alerts._show(title, message, null, 'confirm', null, function(result) {
                 if (callback) {
                     callback(result);
                 }
@@ -388,6 +412,13 @@
      */
     jConfirm = function (message, title, callback) {
         $.alerts.confirm(message, title, callback);
+    };
+
+    /**
+     * @see $.alerts.question
+     */
+    jQuestion = function(message, title, yesbtn, nobtn, callback) {
+        $.alerts.question(message, title, yesbtn, nobtn, callback);
     };
 
     /**
