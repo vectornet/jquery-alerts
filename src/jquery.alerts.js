@@ -1,30 +1,3 @@
-// jQuery Alert Dialogs Plugin
-//
-// Version 1.1
-//
-// Cory S.N. LaViska
-// A Beautiful Site (http://abeautifulsite.net/)
-// 14 May 2009
-//
-// Visit http://abeautifulsite.net/notebook/87 for more information
-//
-// Usage:
-//      jAlert( message, [title, callback] )
-//      jConfirm( message, [title, callback] )
-//      jPrompt( message, [value, title, callback] )
-//
-// History:
-//
-//      1.00 - Released (29 December 2008)
-//
-//      1.01 - Fixed bug where unbinding would destroy all resize events
-//
-// License:
-//
-// This plugin is dual-licensed under the GNU General Public License and the MIT License and
-// is copyright 2008 A Beautiful Site, LLC.
-//
-
 /**
  * jQuery Alert Dialogs Plugin
  *
@@ -33,6 +6,12 @@
  *      jConfirm( message, [title, callback] )
  *      jPrompt( message, [value, title, callback] )
  *      jOptions( message, [title, options, callback] )
+ *
+ * History:
+ *      2.0.0   - New version with new options by Vector, now this plugin is SemVer(http://semver.org) like
+ *      1.1     -
+ *      1.01    - Fixed bug where unbinding would destroy all resize events
+ *      1.00    - Released (29 December 2008)
  *
  * @author Cory S.N. LaViska
  * @author Joubert <eu+github@redrat.com.br>
@@ -45,10 +24,10 @@
  * https://github.com/vectornet/jquery-alerts
  */
 (function ($) {
-
     $.alerts = {
-
-        // These properties can be read/written by accessing $.alerts.propertyName from your scripts at any time
+        /**
+         * These properties can be read/written by accessing $.alerts.propertyName from your scripts at any time
+         */
 
         verticalOffset: -75,                // vertical offset of the dialog from center screen, in pixels
         horizontalOffset: 0,                // horizontal offset of the dialog from center screen, in pixels/
@@ -59,10 +38,10 @@
         okButton: '&nbsp;OK&nbsp;',         // text for the OK button
         cancelButton: '&nbsp;Cancel&nbsp;', // text for the Cancel button
         dialogClass: null,                  // if specified, this class will be applied to all dialogs
-        alertDefaultTitle: 'Alert',
-        confirmDefaultTitle: 'Confirm',
-        promptDefaultTitle: 'Prompt',
-        optionsDefaultTitle: 'Options',
+        alertDefaultTitle: 'Alert',         // Default alert title
+        confirmDefaultTitle: 'Confirm',     // Default confirm title
+        promptDefaultTitle: 'Prompt',       // Default prompt title
+        optionsDefaultTitle: 'Options',     // Default options title
 
         /**
          * Public methods
@@ -246,16 +225,16 @@
                         $("#popup_message").after(
                             '<div id="popup_panel"><input type="button" value="' + $.alerts.okButton + '" id="popup_ok" /> <input type="button" value="' + $.alerts.cancelButton + '" id="popup_cancel" /></div>'
                         );
-                        $("#popup_ok").click(function () {
+                        $("#popup_ok").bind('click', function () {
                             $.alerts._hide();
                             if (callback) {
                                 callback(true);
                             }
                         });
-                        $("#popup_cancel").click(function () {
+                        $("#popup_cancel").bind('click', function () {
                             $.alerts._hide();
                             if (callback) {
-                                callback(true);
+                                callback(false);
                             }
                         });
                         $("#popup_ok").focus();

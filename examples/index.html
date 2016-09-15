@@ -6,10 +6,13 @@
     <link rel="stylesheet" href="../src/jquery.alerts.css" media="screen" type="text/css" />
     <script src="https://code.jquery.com/jquery-1.10.2.min.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="../src/jquery.alerts.js"></script>
+    <script type="text/javascript" src="../src/lang/pt_br.js"></script>
     <script>
         jQuery().ready(function() {
             $('#alert').bind('click', function() {
-                jAlert('Alert message', 'Alert title');
+                jAlert('Alert message', 'Alert title', function(response) {
+                    jAlert('Alert callback', 'Alert title');
+                });
             });
             $('#confirm').bind('click', function() {
                 jConfirm('Confirm message', 'Confirm title', function(response) {
