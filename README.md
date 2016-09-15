@@ -1,0 +1,2 @@
+# jquery-alerts
+jQuery Alerts
