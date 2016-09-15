@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>jQuery Alerts</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../src/jquery.alerts.css" media="screen" type="text/css" />
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="../src/jquery.alerts.js"></script>
+    <script>
+        jQuery().ready(function(){
+            $('#alert').bind('click', function(){
+                jAlert('Alert message', 'Alert title');
+            });
+        });//ready
+    </script>
+</head>
+<body>
+    <button id="alert">Alert</button>
+    <button id="confirm">Confirm</button>
+    <button id="prompt">Prompt</button>
+</body>
+</html>
