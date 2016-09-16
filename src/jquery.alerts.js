@@ -4,10 +4,12 @@
  * Usage:
  *      jAlert( message, [title, callback] )
  *      jConfirm( message, [title, callback] )
+ *      jQuestion( message, [title, button_ok, button_cancel, callback] )
  *      jPrompt( message, [value, title, callback] )
  *      jOptions( message, [title, options, callback] )
  *
  * History:
+ *      2.1.0   - New option to set container custom max width
  *      2.0.0   - New version with new options by Vector, now this plugin is SemVer(http://semver.org) like
  *      1.1     -
  *      1.01    - Fixed bug where unbinding would destroy all resize events
@@ -43,6 +45,7 @@
         questionDefaultTitle: 'Question',   // Default question title
         promptDefaultTitle: 'Prompt',       // Default prompt title
         optionsDefaultTitle: 'Options',     // Default options title
+        cssContainerMaxWidth: null,         // Css max width
 
         /**
          * Public methods
@@ -189,6 +192,10 @@
                 $("#popup_container").addClass($.alerts.dialogClass);
             }
 
+            if (!$.alerts.cssContainerMaxWidth) {
+                $.alerts.cssContainerMaxWidth = $("#popup_container").outerWidth();
+            }
+
             $("#popup_container").css({
                 position: 'fixed',
                 zIndex: 99999,
@@ -205,7 +212,7 @@
 
             $("#popup_container").css({
                 minWidth: $("#popup_container").outerWidth(),
-                maxWidth: $("#popup_container").outerWidth()
+                maxWidth: $.alerts.cssContainerMaxWidth
             });
 
             $.alerts._reposition();
@@ -361,8 +368,9 @@
          * @returns {void}
          */
         _reposition: function () {
+            var number = $.alerts.cssContainerMaxWidth.replace(/[^0-9]/g, '');
             var top = (($(window).height() / 2) - ($("#popup_container").outerHeight() / 2)) + $.alerts.verticalOffset;
-            var left = (($(window).width() / 2) - ($("#popup_container").outerWidth() / 2)) + $.alerts.horizontalOffset;
+            var left = (($(window).width() / 2) - (number / 2)) + $.alerts.horizontalOffset;
             if (top < 0) {
                 top = 0;
             }
