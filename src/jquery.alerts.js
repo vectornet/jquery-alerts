@@ -9,7 +9,6 @@
  *      jOptions( message, [title, options, callback] )
  *
  * History:
- *      2.1.0   - New option to set container custom max width
  *      2.0.0   - New version with new options by Vector, now this plugin is SemVer(http://semver.org) like
  *      1.1     -
  *      1.01    - Fixed bug where unbinding would destroy all resize events
@@ -192,8 +191,14 @@
                 $("#popup_container").addClass($.alerts.dialogClass);
             }
 
-            if (!$.alerts.cssContainerMaxWidth) {
-                $.alerts.cssContainerMaxWidth = $("#popup_container").outerWidth();
+            if ($.alerts.cssContainerMaxWidth) {
+                if (isNaN($.alerts.cssContainerMaxWidth)) {
+                    var MaxWidth = $.alerts.cssContainerMaxWidth.replace(/[^0-9]/g, '');
+                } else {
+                    var MaxWidth = $.alerts.cssContainerMaxWidth;
+                }
+            } else {
+                var MaxWidth = $("#popup_container").outerWidth();
             }
 
             $("#popup_container").css({
@@ -212,7 +217,7 @@
 
             $("#popup_container").css({
                 minWidth: $("#popup_container").outerWidth(),
-                maxWidth: $.alerts.cssContainerMaxWidth
+                maxWidth: MaxWidth
             });
 
             $.alerts._reposition();
@@ -368,9 +373,8 @@
          * @returns {void}
          */
         _reposition: function () {
-            var number = $.alerts.cssContainerMaxWidth.replace(/[^0-9]/g, '');
             var top = (($(window).height() / 2) - ($("#popup_container").outerHeight() / 2)) + $.alerts.verticalOffset;
-            var left = (($(window).width() / 2) - (number / 2)) + $.alerts.horizontalOffset;
+            var left = (($(window).width() / 2) - ($("#popup_container").outerWidth() / 2)) + $.alerts.horizontalOffset;
             if (top < 0) {
                 top = 0;
             }
